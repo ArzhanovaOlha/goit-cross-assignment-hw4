@@ -1,97 +1,74 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+## Компоненти
 
-# Getting Started
+### `CustomButton`
+Кнопка з підтримкою іконки, двох варіантів (primary / outline), стану завантаження та блокування.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+**Пропси:** `title`, `icon?`, `onPress`, `variant?`, `loading?`, `disabled?`
 
-## Step 1: Start Metro
+### `CoffeeCard`
+Картка напою із зображенням, назвою, типом, ціною, рейтингом та кнопкою "додати до кошика". Ширина розраховується через `useWindowDimensions` для відображення у 2 колонки.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+**Пропси:** `name`, `type`, `price`, `rating?`, `imageUrl`, `isFavourite?`, `onPress?`, `onAddToCart?`, `onToggleFavourite?`
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### `Header`
+Шапка застосунку з логотипом, вітальним текстом, заголовком та іконкою кошика з лічильником.
 
-```sh
-# Using npm
-npm start
+**Пропси:** `logoUrl?`, `greeting?`, `title`, `cartCount?`, `onCartPress?`
 
-# OR using Yarn
-yarn start
+### `SearchBar`
+Поле пошуку з кнопкою фільтра та мікропідказками — при введенні тексту показується список відповідних варіантів.
+
+**Пропси:** `value?`, `onChangeText?`, `onFilterPress?`, `onSuggestionSelect?`, `placeholder?`, `suggestions?`
+
+### `CategoryList`
+Горизонтальний скролл-список категорій із підсвіченням активної та посиланням "See all".
+
+**Пропси:** `categories`, `title?`, `onSelect?`, `onSeeAll?`
+
+### `PromoBanner`
+Банер з фоновим зображенням, тегом та заголовком акції.
+
+**Пропси:** `tag?`, `title`, `imageUrl`, `onPress?`
+
+### `BottomNavBar`
+Нижня панель навігації з 4 вкладками (Home, Search, Favorites, Profile) і індикатором активної вкладки.
+
+**Пропси:** `activeTab?`, `onTabPress?`
+
+---
+
+## Структура проекту
+
+```
+src/
+├── components/
+│   ├── CustomButton.tsx
+│   ├── CoffeeCard.tsx
+│   ├── Header.tsx
+│   ├── SearchBar.tsx
+│   ├── CategoryList.tsx
+│   ├── PromoBanner.tsx
+│   └── BottomNavBar.tsx
+└── constants/
+    ├── colors.ts
+    └── typography.ts
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+[Скріншоти компонентів](screenshots/)
 
-### Android
+---
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+## Запуск
 
 ```sh
-bundle install
-```
+# Залежності
+npm install
 
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+# iOS (після bundle install && bundle exec pod install)
 npm run ios
 
-# OR using Yarn
-yarn ios
+# Android
+npm run android
 ```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
