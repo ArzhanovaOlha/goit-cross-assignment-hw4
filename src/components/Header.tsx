@@ -17,6 +17,8 @@ interface Props {
   title: string;
   cartCount?: number;
   onCartPress?: () => void;
+  /** When provided, a hamburger button is shown to open the Drawer */
+  onMenuPress?: () => void;
 }
 
 export default function Header({
@@ -25,9 +27,16 @@ export default function Header({
   title,
   cartCount = 0,
   onCartPress,
+  onMenuPress,
 }: Props) {
   return (
     <View style={styles.container}>
+      {onMenuPress != null && (
+        <TouchableOpacity style={styles.menuButton} onPress={onMenuPress} activeOpacity={0.7}>
+          <Text style={styles.menuIcon}>☰</Text>
+        </TouchableOpacity>
+      )}
+
       <View style={styles.left}>
         {logoUrl != null && (
           <Image source={{ uri: logoUrl }} style={styles.logo} resizeMode="contain" />
@@ -58,6 +67,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: Platform.select({ ios: 0, android: 8 }),
     paddingBottom: 8,
+  },
+  menuButton: {
+    marginTop: 4,
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 8,
+  },
+  menuIcon: {
+    color: COLORS.textWhite,
+    fontSize: 22,
   },
   left: {
     flex: 1,

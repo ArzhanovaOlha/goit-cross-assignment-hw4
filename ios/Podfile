@@ -30,5 +30,26 @@ target 'CoffeeApp' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # ─── Xcode 26 / hermes-engine CDP compatibility fix ───────────────────────
+    # react-native 0.86 references hermes/inspector/RuntimeAdapter.h which no
+    # longer exists in hermes-engine ≥250829098 (moved to CDP). Create a stub
+    # header so the build can find the include and succeed.
+    hermes_include = "#{installer.sandbox.root}/hermes-engine/destroot/include"
+    inspector_dir  = "#{hermes_include}/hermes/inspector"
+    stub_file      = "#{inspector_dir}/RuntimeAdapter.h"
+
+    unless File.exist?(stub_file)
+      FileUtils.mkdir_p(inspector_dir)
+      File.write(stub_file, <<~H)
+        // Compatibility stub — hermes inspector API migrated to CDP in newer releases.
+        // This file exists only to satisfy the #include in react-native 0.86 sources.
+        #pragma once
+        #include <hermes/hermes.h>
+        namespace hermes { namespace inspector { class RuntimeAdapter {}; } }
+      H
+      Pod::UI.puts "[fix] Created hermes inspector stub: #{stub_file}"
+    end
+    # ──────────────────────────────────────────────────────────────────────────
   end
 end
